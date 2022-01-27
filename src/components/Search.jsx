@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import { useQuery } from "../hooks/useQuery";
 import { useEffect } from "react";
 
-export function Search(){
+export function Search({setHasMore, setPage, setMovie}){
     const [ searchText, setSearchtext ] = useState("");
     const history = useHistory();
 
@@ -19,6 +19,9 @@ export function Search(){
     const handleSubmit = (e) => {
         e.preventDefault();
         history.push("/?search=" + searchText)
+        setHasMore(true);
+        setMovie([]);
+        setPage(1);
     }
 
     return (
