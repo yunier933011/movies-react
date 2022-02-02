@@ -1,17 +1,17 @@
-import { useState } from "react"
 import { MoviesGrid } from "../components/MoviesGrid";
 import { Search } from "../components/Search";
+import { useDebounce } from "../hooks/useDebounce";
+import { useQuery } from "../hooks/useQuery";
 
 export function LandingPage(){
-    const [movies, setMovie] = useState([]);
-    const [ isLoading, setIsLoading ] = useState(true);
-    const [ page, setPage ] = useState(1);
-    const [ hasMore, setHasMore] = useState(true);
+    const query = useQuery();
+    const search = query.get("search");
 
+    const debouncedSearch = useDebounce(search, 400);
     return (
     <div>
-        <Search setHasMore={setHasMore} setMovie={setMovie} setPage={setPage}/>
-        <MoviesGrid setHasMore={setHasMore} setMovie={setMovie} setPage={setPage} hasMore={hasMore} page={page} movies={movies}/>
+        <Search search={search} />
+        <MoviesGrid key={debouncedSearch} search={debouncedSearch} />
     </div>
     )
 }
