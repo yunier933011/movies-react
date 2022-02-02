@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import { useQuery } from "../hooks/useQuery";
 import { useEffect } from "react";
 
-export function Search({setHasMore, setPage, setMovie}){
+export function Search({setHasMore, setPage, setMovies}){
     const [ searchText, setSearchtext ] = useState("");
     const history = useHistory();
 
@@ -20,7 +20,7 @@ export function Search({setHasMore, setPage, setMovie}){
         e.preventDefault();
         history.push("/?search=" + searchText)
         setHasMore(true);
-        setMovie([]);
+        setMovies([]);
         setPage(1);
     }
 

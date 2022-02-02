@@ -6,7 +6,7 @@ import { Spinner } from "./Spinner";
 import { useQuery } from "../hooks/useQuery";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-export function MoviesGrid({setHasMore, setPage, setMovie, hasMore, movies, page}) {
+export function MoviesGrid({setHasMore, setPage, setMovies, hasMore, movies, page}) {
 
   
   const query = useQuery();
@@ -18,11 +18,11 @@ export function MoviesGrid({setHasMore, setPage, setMovie, hasMore, movies, page
     ? "/search/movie?query=" + search + "&page=" + page 
     : "/discover/movie?page=" + page;
     get(searchUrl).then((data) => {
-      setMovie((preMovies) => preMovies.concat(data.results));
+      setMovies((preMovies) => preMovies.concat(data.results));
       setHasMore(data.page < data.total_pages);
       //setIsLoading(false);
     })
-  }, [search, page, setMovie, setHasMore]);
+  }, [search, page, setMovies, setHasMore]);
 
   return (
     <InfiniteScroll
