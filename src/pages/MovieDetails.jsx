@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { get } from "../utils/httpClient";
 import { Spinner } from "../components/Spinner";
+import { getMovieImg } from "../utils/getMovieImg";
 
 export function MovieDetails(){
 
@@ -22,10 +23,12 @@ export function MovieDetails(){
     if(isLoading){
     return <Spinner />
     }
-    const imageUrl = "https://image.tmdb.org/t/p/w500" + movie.poster_path;
+    const imageUrl = getMovieImg(movie.poster_path, 500);
     return (
       <div className={styles.detailsContainer}>
         <img
+          width={230}
+          height={345}
           className={`${styles.col} ${styles.movieImage}`}
           src={imageUrl}
           alt={movie.title}
@@ -37,7 +40,7 @@ export function MovieDetails(){
           </p>
           <p>
             <strong>Genres: </strong>
-            {movie.genres.map(genre => genre.name).join(", ")}
+            {movie.genres.map((genre) => genre.name).join(", ")}
           </p>
           <p>
             <strong>Description: </strong>
@@ -45,5 +48,5 @@ export function MovieDetails(){
           </p>
         </div>
       </div>
-    )
+    );
 };
