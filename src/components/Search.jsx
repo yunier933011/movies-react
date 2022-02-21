@@ -1,17 +1,10 @@
 import styles from "./Search.module.css"
 import { FaSearch } from "react-icons/fa"
-import { useHistory } from "react-router-dom";
 
-export function Search({ search }){
-    const history = useHistory();
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        history.push("/?search=" + search)
-    }
+export function Search({ search, setQuery }){
 
     return (
-        <form className={ styles.searchContainer } onSubmit={handleSubmit} >
+        <form className={ styles.searchContainer } >
             <div className={ styles.searchBox }>
                 <input
                  className={ styles.searchInput } type="text"
@@ -20,7 +13,7 @@ export function Search({ search }){
                  aria-label="Search Movies"
                  onChange={(e) => {
                     const value = e.target.value;
-                    history.push("/?search=" + value) 
+                    setQuery({search: value});
                  }}
                 />
                     <FaSearch size={20} color="black" className={ styles.searchButton } />
